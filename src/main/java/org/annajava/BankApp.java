@@ -1,5 +1,6 @@
 package org.annajava;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class BankApp {
@@ -21,9 +22,9 @@ public class BankApp {
                     case "1": {
                         System.out.println("Enter user name:");
                         String username = scanner.nextLine();
-                        System.out.println("Enter password");
-                        String password = scanner.nextLine();
-                        boolean status = bank.register(username, password);
+//                        System.out.println("Enter password");
+//                        String password = scanner.nextLine();
+                        boolean status = bank.register(username);
                         System.out.println(status ? "✅ Registration success" : "❌ Registration failed");
                     }
                     break;
@@ -49,6 +50,8 @@ public class BankApp {
                 System.out.println("2. Deposit");
                 System.out.println("3. Withdraw");
                 System.out.println("4. Exit");
+                System.out.println("---------");
+                System.out.println("5. Show transaction");
 
                 String choice = scanner.nextLine();
                 switch (choice) {
@@ -73,6 +76,12 @@ public class BankApp {
                     }
                     case "4":
                         System.out.println("Goodbye!");
+                        account = null;
+                        break;
+                    case "5":
+                        System.out.println("List of transactions for: " + account.getUsername());
+                        List<Transaction> transactions = account.getTransactions();
+                        transactions.forEach((n) -> {System.out.println(n);});
                         account = null;
                         break;
                     default:
