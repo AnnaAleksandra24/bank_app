@@ -3,7 +3,7 @@ package org.annajava;
 public class BankApp {
     public static void main(String[] args) {
 
-        BankCLI cli = new BankCLI();
+        BankCLI cli = new BankCLI(System.in, System.out);
         cli.run();
 
 
