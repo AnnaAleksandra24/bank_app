@@ -1,5 +1,6 @@
 package org.annajava;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,10 @@ public class BankAccount {
 
     private double balance = 0;
 
-    public BankAccount(String username, String password) {
+    PrintStream out;
+
+    public BankAccount(String username, String password, PrintStream out){
+        this.out = out;
         this.username = username;
         this.password = password;
         transactions.add(new Transaction(TransactionType.DEPOSIT, 0, 0));
@@ -38,6 +42,10 @@ public class BankAccount {
 
     public double withdraw(double value){
         //todo value shouldn't be more than balance
+        if (this.balance < value){
+            out.println("You cannot get money more than your account has!");
+            return this.balance;
+        }
         this.balance -= value;
         transactions.add(new Transaction(TransactionType.WITHDRAW, value, this.balance));
         return this.balance;

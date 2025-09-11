@@ -9,12 +9,14 @@ public class BankCLI {
     Scanner scanner;
     PrintStream out;
     BankAccount account = null;
-    Bank bank = new Bank( new PasswordGenerator());
+    PasswordProvider passwordGenerator;
+    Bank bank;
 
-
-    public BankCLI(InputStream in, PrintStream out) {
+    public BankCLI(InputStream in, PrintStream out, PasswordProvider passwordGenerator) {
         this.scanner = new Scanner(in);
         this.out = out;
+        bank = new Bank(passwordGenerator, out);
+//        this.passwordGenerator = passwordGenerator;
     }
 
     public void run(){
@@ -109,7 +111,6 @@ public class BankCLI {
                 out.println("List of transactions for: " + account.getUsername());
                 List<Transaction> transactions = account.getTransactions();
                 transactions.forEach((n) -> {out.println(n);});
-                account = null;
                 return false;
             default:
                 out.println("\uD83D\uDD34 Invalid command");
